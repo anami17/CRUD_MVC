@@ -24,20 +24,52 @@
                     <div class="card-body">
 
                         <?php
-                        $conn = new mysqli('localhost','root','','icon');
+                       /* $conn = new mysqli('localhost','root','','icon');
                         if($conn->connect_error){
                         die('Connection Failed : '.$conn->connect_error);
                         }
-                        $sql = "UPDATE USER SET firstname= '' WHERE id=2";
+                        $sql = "UPDATE USER SET firstname= '' WHERE  ";
 
                         if ($conn->query($sql) === TRUE) {
-                        echo "Record updated successfully";
-                        } else {
-                        echo "Error updating record: " . $conn->error;
-                        }
+                            echo "Record updated successfully";
+                            } else {
+                            echo "Error updating record: " . $conn->error;
+                            }
 
-                        $conn->close();
+                            $conn->close();*/
                         ?>
+                        <form action="collection.php" method="POST">
+                                    <div class="mb-3">
+                                        <label>First Name</label>
+                                        <input type="text" name="firstname" value="<?=$row['firstname'];?>" class="form-control">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label>Middle Name</label>
+                                        <input type="email" name="middlename" value="<?=$row['middlename'];?>" class="form-control">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label>Last Name</label>
+                                        <input type="text" name="lastname" value="<?=$row['lastname'];?>" class="form-control">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label>Department</label>
+                                        <input type="text" name="department" value="<?=$row['department'];?>" class="form-control">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label>Position</label>
+                                        <input type="text" name="position" value="<?=$row['position'];?>" class="form-control">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label>Address</label>
+                                        <input type="text" name="address" value="<?=$row['address'];?>" class="form-control">
+                                    </div>
+                                    <div class="mb-3">
+                                        <button type="submit" name="update_user" class="btn btn-primary">
+                                            Update Student
+                                        </button>
+                                    </div>
+
+                                </form>
                     </div>
                 </div>
             </div>
