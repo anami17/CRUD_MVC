@@ -15,7 +15,7 @@
   </head>
   <body>
 
-    <div class ="container">
+    <div class ="container mt-5">
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
@@ -35,6 +35,7 @@
                                     <th>Department</th>
                                     <th>Position</th>
                                     <th>Address</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -56,16 +57,23 @@
                                             "</td><td>".$row["position"].
                                             "</td><td>".$row["address"].
                                             "</td></td>";
-                                        
-                                        }
-                                            echo "</table>";
+                                            }
+                                          echo "</table>";
                                     }
+                                
                                             else {
                                             echo "0 result";
                                             }
-                                            $conn-> close();
-                                    
+                                            $conn-> close();     
                                     ?>
+                                     <tr>
+                                        <a href='table.php' class="btn btn-info btn-sm">View</a>
+                                        <a href='edit.php' class="btn btn-success btn-sm">Edit</a>
+                                        <form action="collection.php" method="POST" class="d-inline">
+                                            <button type="submit" name="deleteUser" value="<?=$row['firstname'];?>" class="btn btn-danger btn-sm">Delete</button>
+                                        </form>
+                                     </td>
+                                    
                             </tbody>
                         </table>
                     </div>
