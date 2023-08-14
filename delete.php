@@ -52,7 +52,7 @@
                                 exit;
                             }
 
-                            if (isset($_POST['update_user'])) {
+                            if (isset($_POST['delete_user'])) {
                                 $firstname = $_POST['firstname'];
                                 $middlename = $_POST['middlename'];
                                 $lastname = $_POST['lastname'];
@@ -60,7 +60,7 @@
                                 $position = $_POST['position'];
                                 $address = $_POST['address'];
 
-                                $sql = "UPDATE icon_data SET firstname = '$firstname', middlename = '$middlename', lastname = '$lastname', department = '$department', position = '$position', address = '$address' WHERE id = '$user_id'";
+                                $sql = "DELETE FROM icon_data WHERE firstname = '$firstname' AND middlename = '$middlename' AND lastname = '$lastname' AND department = '$department' AND position = '$position' AND address = '$address' AND id = '$user_id'";
 
                                 if ($conn->query($sql) === TRUE) {
                                     header("Location: table.php");
@@ -72,7 +72,7 @@
                             $conn->close();
                             ?>
 
-                        <form action="edit.php?user_id=<?= $user_id ?>" method="POST"> 
+                        <form action="delete.php?user_id=<?= $user_id ?>" method="POST"> 
                             <!-- Rest of the form fields -->
                             <div class="mb-3">
                                     <label>First Name</label>
@@ -99,8 +99,8 @@
                                     <input type="text" name="address" value="<?= $user_data['address']; ?>" class="form-control">
                             </div>
                             <div class="mb-3">
-                                    <button type="submit" name="update_user" class="btn btn-primary">
-                                     Update User
+                                    <button type="submit" name="delete_user" class="btn btn-primary">
+                                     Delete User
                                     </button>
                             </div>
                         </form>

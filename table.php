@@ -1,5 +1,5 @@
 <?php
-//require 'dbcon.php';
+//include('dbcon.php');
 ?>
 <!doctype html>
 <html lang="en">
@@ -35,11 +35,13 @@
                                     <th>Department</th>
                                     <th>Position</th>
                                     <th>Address</th>
-                                    <th>Action</th>
+                                    <th>Edit</th>
+                                    <th>Delete</th>
+                                    
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php
+                            <?php
                                     $conn = new mysqli('localhost','root','','icon');
                                     if($conn->connect_error){
                                     die('Connection Failed : '.$conn->connect_error);
@@ -49,14 +51,22 @@
 
                                     if ($result-> num_rows > 0){
                                         while ($row = $result-> fetch_assoc()){
-                                            echo 
-                                            "<tr><td>".$row["firstname"].
-                                            "</td><td>".$row["middlename"].
-                                            "</td><td>".$row["lastname"].
-                                            "</td><td>".$row["department"].
-                                            "</td><td>".$row["position"].
-                                            "</td><td>".$row["address"].
-                                            "</td></td>";
+                                            ?>
+                                        <tr>
+                                            <td><?= $row["firstname"]?></td>
+                                            <td><?= $row["middlename"]?></td>
+                                            <td><?= $row["lastname"]?></td>
+                                            <td><?= $row["department"]?></td>
+                                            <td><?= $row["position"]?></td>
+                                            <td><?= $row["address"]?></td>
+                                            <td>
+                                                <a href="edit.php" class="btn btn-success">Edit</a>
+                                            </td>
+                                            <td>
+                                                <a href="delete.php" class="btn btn-danger">Delete</a>
+                                            </td>
+                                        </tr>
+                                          <?php 
                                             }
                                           echo "</table>";
                                     }
@@ -65,15 +75,7 @@
                                             echo "0 result";
                                             }
                                             $conn-> close();     
-                                    ?>
-                                     <tr>
-                                        <a href='table.php' class="btn btn-info btn-sm">View</a>
-                                        <a href='edit.php' class="btn btn-success btn-sm">Edit</a>
-                                        <form action="collection.php" method="POST" class="d-inline">
-                                            <button type="submit" name="deleteUser" value="<?=$row['firstname'];?>" class="btn btn-danger btn-sm">Delete</button>
-                                        </form>
-                                     </td>
-                                    
+                                    ?>     
                             </tbody>
                         </table>
                     </div>

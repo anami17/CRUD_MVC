@@ -26,7 +26,7 @@
                 </div>
                 <div class="card-body">
                     <form action="collection.php" method="POST">
-
+                    
                     <div class="mb-3">
                         <label>First Name</label>
                         <input type="text" name="firstname" class="form-control">
