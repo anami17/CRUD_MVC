@@ -1,6 +1,3 @@
-<?php
-//include('dbcon.php');
-?>
 <!doctype html>
 <html lang="en">
   <head>
@@ -46,7 +43,7 @@
                                     if($conn->connect_error){
                                     die('Connection Failed : '.$conn->connect_error);
                                     }
-                                    $sql = "SELECT firstname, middlename, lastname, department, position, address from icon_data";
+                                    $sql = "SELECT id, firstname, middlename, lastname, department, position, address from icon_data";
                                     $result =$conn-> query ($sql);
 
                                     if ($result-> num_rows > 0){
@@ -56,14 +53,14 @@
                                             <td><?= $row["firstname"]?></td>
                                             <td><?= $row["middlename"]?></td>
                                             <td><?= $row["lastname"]?></td>
-                                            <td><?= $row["department"]?></td>
+                                            <td><?= $row["department"]?></td>  
                                             <td><?= $row["position"]?></td>
                                             <td><?= $row["address"]?></td>
                                             <td>
-                                                <a href="edit.php" class="btn btn-success">Edit</a>
+                                            <a href="edit.php?id=<?= $row["id"]?>" class="btn btn-success">Edit</a>
                                             </td>
                                             <td>
-                                                <a href="delete.php" class="btn btn-danger">Delete</a>
+                                                <a href="delete.php?id=<?= $row["id"]?>" class="btn btn-danger">Delete</a>
                                             </td>
                                         </tr>
                                           <?php 

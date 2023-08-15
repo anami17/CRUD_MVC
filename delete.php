@@ -8,7 +8,7 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <title>Student Edit</title>
+    <title>User Edit</title>
 </head>
 <body>
   
@@ -23,26 +23,29 @@
                     </div>
                     <div class="card-body">
                         <?php
-                           
                             $conn = new mysqli('localhost', 'root', '', 'icon');
 
                             if ($conn->connect_error) {
                                 die('Connection failed: ' . $conn->connect_error);
                             }
-                           
+
+                            
                             $sql = "SELECT id FROM icon_data"; 
 
                             $result = $conn->query($sql);
 
-                            if ($result->num_rows > 0) {
-                                while ($row = $result->fetch_assoc()) {
-                                    $user_id = $row['id'];
-                                }
-                            } else {
-                                echo "No users found.";
-                            }
-
+                            // if ($result->num_rows > 0) {
+                            //     while ($row = $result->fetch_assoc()) {
+                            //         $user_id = $row['id'];
+                            //     }
+                            // } else {
+                            //     echo "No users found.";
+                            // }
+                            
+                            if(isset($_GET["id"])){
+                                $user_id = $_GET["id"];
                             $sql = "SELECT * FROM icon_data WHERE id = '$user_id'";
+                            
                             $result = $conn->query($sql);
                             if ($result->num_rows > 0) {
                                 $user_data = $result->fetch_assoc();
@@ -51,6 +54,7 @@
                                 $conn->close();
                                 exit;
                             }
+                        }
 
                             if (isset($_POST['delete_user'])) {
                                 $firstname = $_POST['firstname'];
@@ -73,7 +77,6 @@
                             ?>
 
                         <form action="delete.php?user_id=<?= $user_id ?>" method="POST"> 
-                            <!-- Rest of the form fields -->
                             <div class="mb-3">
                                     <label>First Name</label>
                                     <input type="text" name="firstname" value="<?= $user_data['firstname']; ?>" class="form-control">
