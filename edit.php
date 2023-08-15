@@ -73,7 +73,6 @@
                             ?>
 
                         <form action="edit.php?user_id=<?= $user_id ?>" method="POST"> 
-                            <!-- Rest of the form fields -->
                             <div class="mb-3">
                                     <label>First Name</label>
                                     <input type="text" name="firstname" value="<?= $user_data['firstname']; ?>" class="form-control">
