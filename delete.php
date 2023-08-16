@@ -23,60 +23,39 @@
                     </div>
                     <div class="card-body">
                         <?php
-                            $conn = new mysqli('localhost', 'root', '', 'icon');
-
-                            if ($conn->connect_error) {
-                                die('Connection failed: ' . $conn->connect_error);
-                            }
-
-                            
-                            $sql = "SELECT id FROM icon_data"; 
-
-                            $result = $conn->query($sql);
-
-                            // if ($result->num_rows > 0) {
-                            //     while ($row = $result->fetch_assoc()) {
-                            //         $user_id = $row['id'];
-                            //     }
-                            // } else {
-                            //     echo "No users found.";
-                            // }
-                            
-                            if(isset($_GET["id"])){
-                                $user_id = $_GET["id"];
-                            $sql = "SELECT * FROM icon_data WHERE id = '$user_id'";
-                            
-                            $result = $conn->query($sql);
-                            if ($result->num_rows > 0) {
-                                $user_data = $result->fetch_assoc();
-                            } else {
-                                echo "User not found.";
-                                $conn->close();
-                                exit;
-                            }
+            
+                        $conn = new mysqli('localhost', 'root', '', 'icon');
+                        
+                        if ($conn->connect_error) {
+                            die('Connection failed: ' . $conn->connect_error);
                         }
+                                      
+                        if(isset($_GET["id"])){
+                            $user_id = $_GET["id"];
 
-                            if (isset($_POST['delete_user'])) {
-                                $firstname = $_POST['firstname'];
-                                $middlename = $_POST['middlename'];
-                                $lastname = $_POST['lastname'];
-                                $department = $_POST['department'];
-                                $position = $_POST['position'];
-                                $address = $_POST['address'];
-
-                                $sql = "DELETE FROM icon_data WHERE firstname = '$firstname' AND middlename = '$middlename' AND lastname = '$lastname' AND department = '$department' AND position = '$position' AND address = '$address' AND id = '$user_id'";
-
-                                if ($conn->query($sql) === TRUE) {
-                                    header("Location: table.php");
-                                } else {
-                                    echo "Error updating record: " . $conn->error;
-                                }
-                            }
-
+                        $sql = "SELECT * FROM icon_data WHERE id = '$user_id'";
+                        
+                        $result = $conn->query($sql);
+                        if ($result->num_rows > 0) {
+                            $user_data = $result->fetch_assoc();
+                        } else {
+                            echo "User not found.";
                             $conn->close();
-                            ?>
-
-                        <form action="delete.php?user_id=<?= $user_id ?>" method="POST"> 
+                            exit;
+                        }
+                        }
+                        
+                        if ($result->num_rows > 0) {
+                        ($row = $result->fetch_assoc());
+                        $user_id = $_GET['id'];
+                        }
+                        else {
+                        echo "No users found.";
+                        }
+                        ?>
+                        
+                        <form action="deleteUser.php?user_id=<?= $user_id ?>" method="POST"> 
+                        <input type="hidden" name="id" value="<?php echo $user_id; ?>">
                             <div class="mb-3">
                                     <label>First Name</label>
                                     <input type="text" name="firstname" value="<?= $user_data['firstname']; ?>" class="form-control">
@@ -102,9 +81,10 @@
                                     <input type="text" name="address" value="<?= $user_data['address']; ?>" class="form-control">
                             </div>
                             <div class="mb-3">
-                                    <button type="submit" name="delete_user" class="btn btn-primary">
+                            <button type="submit" name="delete_user" class="btn btn-primary">
                                      Delete User
                                     </button>
+                                
                             </div>
                         </form>
                     </div>
