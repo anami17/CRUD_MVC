@@ -13,6 +13,10 @@
   <body>
 
     <div class ="container mt-5">
+    <?php
+    session_start();
+    include 'message.php';
+     ?>
         <div class="row">
             <div class="col-md-12">
                 <div class="card">

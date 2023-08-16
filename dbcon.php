@@ -1,6 +1,5 @@
 <?php
 
-//$id = htmlspecialchars($_POST["id"]);
 $firstname = htmlspecialchars($_POST["firstname"]);
 $middlename = htmlspecialchars($_POST["middlename"]);
 $lastname = htmlspecialchars($_POST["lastname"]);

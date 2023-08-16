@@ -50,12 +50,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION ['message'] = "Please fill out the form correctly.";
             header("Location: index.php");
             exit(0);
-            //echo $error . "<br>";
+            echo $error . "<br>";
         }
     } else {
         require 'dbcon.php';
         header("Location: table.php");
-        require 'update.php';
+        
     }
 }
 ?> 

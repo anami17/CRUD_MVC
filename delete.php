@@ -17,7 +17,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4>Update
+                        <h4>Delete
                             <a href="table.php" class="btn btn-danger float-end">BACK</a>
                         </h4>
                     </div>
