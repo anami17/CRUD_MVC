@@ -95,11 +95,12 @@ class UserDataRetriever {
         $result = $conn->query($sql);
         if ($result->num_rows > 0) {
             $user_data = $result->fetch_assoc();
-            return $user_data;
         } else {
             return false; // User not found
         }
-    }
+        return $user_id;
+        return $user_data;
+     }
 }
 // Form Submission
 if ($_SERVER["REQUEST_METHOD"] == "POST") {

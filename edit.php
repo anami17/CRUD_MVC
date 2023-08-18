@@ -22,7 +22,11 @@
                     </div>
                     <div class="card-body">
                         <?php
-                        
+                        //require_once 'model.php';
+
+                        //$ID = $user_id->retrieveUserData();
+                        //$retrieve = $user_data->retrieveUserData();
+                       
                         $conn = new mysqli('localhost', 'root', '', 'icon');
                         
                         if ($conn->connect_error) {
