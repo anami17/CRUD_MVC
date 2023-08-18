@@ -25,7 +25,7 @@
                     </h4>  
                 </div>
                 <div class="card-body">
-                    <form action="collection.php" method="POST">
+                    <form action="model.php" method="POST">
                     
                     <div class="mb-3">
                         <label>First Name</label>

@@ -14,7 +14,7 @@
 
     <div class ="container mt-5">
     <?php
-    session_start();
+   // session_start();
     include 'message.php';
      ?>
         <div class="row">
@@ -43,6 +43,7 @@
                             </thead>
                             <tbody>
                             <?php
+                            //require 'control.php';
                                     $conn = new mysqli('localhost','root','','icon');
                                     if($conn->connect_error){
                                     die('Connection Failed : '.$conn->connect_error);
@@ -68,14 +69,14 @@
                                             </td>
                                         </tr>
                                           <?php 
-                                            }
+                                           }
                                           echo "</table>";
                                     }
                                 
                                             else {
                                             echo "0 result";
                                             }
-                                            $conn-> close();     
+                                            $conn-> close();    
                                     ?>     
                             </tbody>
                         </table>
@@ -86,7 +87,5 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-
-
   </body>
 </html>

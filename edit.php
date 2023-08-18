@@ -42,18 +42,12 @@
                             $conn->close();
                             exit;
                         }
-                        }
-                        
-                        if ($result->num_rows > 0) {
-                        ($row = $result->fetch_assoc());
-                        $user_id = $_GET['id'];
-                        }
-                        else {
-                        echo "No users found.";
+                        //var_dump($user_data);
+                        //die();
                         }
                         ?>
                         
-                        <form action="update.php?user_id=<?= $user_id ?>" method="POST"> 
+                        <form action="control.php?user_id=<?= $user_id ?>" method="POST"> 
                         <input type="hidden" name="id" value="<?php echo $user_id; ?>">
                             <div class="mb-3">
                                     <label>First Name</label>
