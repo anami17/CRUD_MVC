@@ -43,11 +43,8 @@
                             </thead>
                             <tbody>
                             <?php
-                            //require 'control.php';
-                                    $conn = new mysqli('localhost','root','','icon');
-                                    if($conn->connect_error){
-                                    die('Connection Failed : '.$conn->connect_error);
-                                    }
+                                    require_once 'model.php';
+                                    $conn = (new Connection())->connect();
                                     $sql = "SELECT id, firstname, middlename, lastname, department, position, address from icon_data";
                                     $result =$conn-> query ($sql);
 

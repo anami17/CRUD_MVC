@@ -1,3 +1,16 @@
+<?php
+require_once 'model.php';
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $collect = new Validation($_POST["firstname"], $_POST["middlename"], $_POST["lastname"], $_POST["department"], $_POST["position"], $_POST["address"]);
+    
+    if (empty($errors)) {
+        $errors = $collect->check();
+        $errors = $collect->insert();
+        header("Location: table.php");
+    }
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,7 +26,7 @@
 <body>
 <div class="container mt-5">
     <?php
-    session_start();
+    //session_start();
     include 'message.php';
     ?>
     <div class="row"
@@ -25,7 +38,7 @@
                     </h4>  
                 </div>
                 <div class="card-body">
-                    <form action="model.php" method="POST">
+                    <form action="index.php" method="POST">
                     
                     <div class="mb-3">
                         <label>First Name</label>

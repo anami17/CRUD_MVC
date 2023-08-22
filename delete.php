@@ -23,38 +23,21 @@
                     </div>
                     <div class="card-body">
                         <?php
-            
-                        $conn = new mysqli('localhost', 'root', '', 'icon');
+                        require_once 'control.php';
                         
-                        if ($conn->connect_error) {
-                            die('Connection failed: ' . $conn->connect_error);
-                        }
-                                      
-                        if(isset($_GET["id"])){
-                            $user_id = $_GET["id"];
+                        
+                        $update = new Database();
 
-                        $sql = "SELECT * FROM icon_data WHERE id = '$user_id'";
-                        
-                        $result = $conn->query($sql);
-                        if ($result->num_rows > 0) {
-                            $user_data = $result->fetch_assoc();
-                        } else {
-                            echo "User not found.";
-                            $conn->close();
-                            exit;
+                        $user_data = $update->select();
+
+                        if (isset($_GET["id"])) {
+                            $user_id = $_GET["id"];
+                            $user_data = $update->getUserData($user_id);
                         }
-                        }
-                        
-                        if ($result->num_rows > 0) {
-                        ($row = $result->fetch_assoc());
-                        $user_id = $_GET['id'];
-                        }
-                        else {
-                        echo "No users found.";
-                        }
+                                                
+                                                           
                         ?>
-                        
-                        <form action="deleteUser.php?user_id=<?= $user_id ?>" method="POST"> 
+                        <form action="control.php?user_id=<?= $user_id ?>" method="POST"> 
                         <input type="hidden" name="id" value="<?php echo $user_id; ?>">
                             <div class="mb-3">
                                     <label>First Name</label>

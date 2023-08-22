@@ -22,33 +22,18 @@
                     </div>
                     <div class="card-body">
                         <?php
-                        //require_once 'model.php';
+                        require_once 'model.php';
 
-                        //$ID = $user_id->retrieveUserData();
-                        //$retrieve = $user_data->retrieveUserData();
-                       
-                        $conn = new mysqli('localhost', 'root', '', 'icon');
-                        
-                        if ($conn->connect_error) {
-                            die('Connection failed: ' . $conn->connect_error);
-                        }
-                               
-                        if(isset($_GET["id"])){
+                        $update = new Database();
+
+                        $user_id = null;
+                        $user_data = null;
+
+                        if (isset($_GET["id"])) {
                             $user_id = $_GET["id"];
+                            $user_data = $update->getUserData($user_id);
+                        }
 
-                        $sql = "SELECT * FROM icon_data WHERE id = '$user_id'";
-                        
-                        $result = $conn->query($sql);
-                        if ($result->num_rows > 0) {
-                            $user_data = $result->fetch_assoc();
-                        } else {
-                            echo "User not found.";
-                            $conn->close();
-                            exit;
-                        }
-                        //var_dump($user_data);
-                        //die();
-                        }
                         ?>
                         
                         <form action="control.php?user_id=<?= $user_id ?>" method="POST"> 

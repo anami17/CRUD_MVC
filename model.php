@@ -2,6 +2,18 @@
 declare(strict_types=1);
 session_start();
 
+class Connection {
+    //Connects to the database
+    public function connect() {
+        $conn = new mysqli('localhost', 'root', '', 'icon');
+
+        if ($conn->connect_error) {
+            die('Connection Failed : ' . $conn->connect_error);
+        }
+
+        return $conn;
+    }
+}
 class Validation {
     public $firstname;
     public $middlename;
@@ -25,7 +37,7 @@ class Validation {
         $this->position = $position;
         $this->address = $address;
     }
-
+    //Validates the Input
     public function check() {
         $errors = [];
 
@@ -66,60 +78,52 @@ class Validation {
 
         return $errors;
     }
-}
-
-class Connect {
-    public function connect() {
-        $conn = new mysqli('localhost', 'root', '', 'icon');
-
-        if ($conn->connect_error) {
-            die('Connection Failed : ' . $conn->connect_error);
-        }
-
-        return $conn;
-    }
-}
-
-class Insert {
-    public function insert($conn, $firstname, $middlename, $lastname, $department, $position, $address) {
+    //Inserts the data from table to database
+    public function insert() {
+        $conn = (new Connection())->connect();
         $stmt = $conn->prepare("INSERT INTO icon_data(firstname, middlename, lastname, department, position, address) VALUES (?, ?, ?, ?, ?, ?)");
-        $stmt->bind_param("ssssss", $firstname, $middlename, $lastname, $department, $position, $address);
+        $stmt->bind_param("ssssss", $this->firstname, $this->middlename, $this->lastname, $this->department, $this->position, $this->address);
         $stmt->execute();
         $stmt->close();
         return $stmt;
     }
 }
-class UserDataRetriever {
-    public function retrieveUserData($conn, $user_id) {
+
+class Database {
+    //Selects the Id from database
+    public function select() {
+        $conn = (new Connection())->connect();
+        $sql = "SELECT id, firstname, middlename, lastname, department, position, address from icon_data";
+        $result = $conn->query($sql);
+
+        $user_data = [];
+
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $user_data[] = $row;
+            }
+        }
+
+        $conn->close();
+        return $user_data;
+    }
+    //Retrieves ID 
+    public function getUserData($user_id) {
+        $conn = (new Connection())->connect();
+
         $sql = "SELECT * FROM icon_data WHERE id = '$user_id'";
         $result = $conn->query($sql);
+
         if ($result->num_rows > 0) {
             $user_data = $result->fetch_assoc();
         } else {
-            return false; // User not found
+            echo "User not found.";
+            $conn->close();
+            exit;
         }
-        return $user_id;
+
+        $conn->close();
         return $user_data;
-     }
-}
-// Form Submission
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $firstname = htmlspecialchars($_POST["firstname"]);
-    $middlename = htmlspecialchars($_POST["middlename"]);
-    $lastname = htmlspecialchars($_POST["lastname"]);
-    $department = htmlspecialchars($_POST["department"]);
-    $position = htmlspecialchars($_POST["position"]);
-    $address = htmlspecialchars($_POST["address"]);
-
-    $collect = new Validation($firstname, $middlename, $lastname, $department, $position, $address);
-    $errors = $collect->check();
-
-    if (empty($errors)) {
-        $connect = new Connect();
-        $conn = $connect->connect();
-        $insert = new Insert();
-        $stmt = $insert->insert($conn, $firstname, $middlename, $lastname, $department, $position, $address);
-        header("Location: table.php");
     }
 }
 ?>
